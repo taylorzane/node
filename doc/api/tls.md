@@ -781,6 +781,9 @@ decrease overall server throughput.
 <!-- YAML
 added: v0.11.3
 changes:
+  - version: REPLACEME
+    pr-url: https://github.com/nodejs/node/pull/14978
+    description: The `pskCallback` option is now supported.
   - version: v8.0.0
     pr-url: https://github.com/nodejs/node/pull/12839
     description: The `lookup` option is supported now.
@@ -820,7 +823,8 @@ changes:
     * *Note*: PSK ciphers are disabled by default, and using
     TLS-PSK thus requires explicitly specifying a cipher suite with the
     `ciphers` option. Additionally, it may be necessary to disable
-    `rejectUnauthorized` when not intending to use certificates.
+    `rejectUnauthorized` if a client attempts to specify a certificate for the
+    session.
     * *Note*: `identity` must use UTF-8 encoding.
   * `NPNProtocols` {string[]|Buffer[]|Uint8Array[]|Buffer|Uint8Array}
     An array of strings, `Buffer`s or `Uint8Array`s, or a single `Buffer` or
