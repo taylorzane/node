@@ -128,6 +128,7 @@ struct http2_state;
   V(emitting_top_level_domain_error_string, "_emittingTopLevelDomainError")   \
   V(exchange_string, "exchange")                                              \
   V(enumerable_string, "enumerable")                                          \
+  V(identity_string, "identity")                                              \
   V(idle_string, "idle")                                                      \
   V(irq_string, "irq")                                                        \
   V(enablepush_string, "enablePush")                                          \
@@ -204,6 +205,7 @@ struct http2_state;
   V(onnewsession_string, "onnewsession")                                      \
   V(onnewsessiondone_string, "onnewsessiondone")                              \
   V(onocspresponse_string, "onocspresponse")                                  \
+  V(onpskexchange_string, "onpskexchange")                                    \
   V(ongoawaydata_string, "ongoawaydata")                                      \
   V(onpriority_string, "onpriority")                                          \
   V(onread_string, "onread")                                                  \
@@ -229,6 +231,7 @@ struct http2_state;
   V(preference_string, "preference")                                          \
   V(priority_string, "priority")                                              \
   V(produce_cached_data_string, "produceCachedData")                          \
+  V(psk_string, "psk")                                                        \
   V(raw_string, "raw")                                                        \
   V(read_host_object_string, "_readHostObject")                               \
   V(readable_string, "readable")                                              \
