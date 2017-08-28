@@ -51,6 +51,11 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <iostream>
+
+using namespace std;
+
+
 #define THROW_AND_RETURN_IF_NOT_STRING_OR_BUFFER(val, prefix)                  \
   do {                                                                         \
     if (!Buffer::HasInstance(val) && !val->IsString()) {                       \
@@ -110,6 +115,7 @@ using v8::Null;
 using v8::Object;
 using v8::ObjectTemplate;
 using v8::Persistent;
+using v8::Promise;
 using v8::PropertyAttribute;
 using v8::PropertyCallbackInfo;
 using v8::ReadOnly;
@@ -1356,6 +1362,25 @@ void SecureContext::EnablePskCallback(
                                   SecureContext::PskClientCallback);
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 unsigned int SecureContext::PskServerCallback(SSL *ssl,
                                               const char *identity,
                                               unsigned char *psk,
@@ -1399,6 +1424,36 @@ unsigned int SecureContext::PskServerCallback(SSL *ssl,
 
   Local<Value> ret = maybe_ret.ToLocalChecked();
 
+  if (ret->IsPromise()) {
+    Local<Promise> promise = ret.As<Promise>();
+
+    short resolved = 0;
+
+    do {
+      Promise::PromiseState pstate = promise->State();
+      switch (pstate) {
+        case Promise::PromiseState::kFulfilled:
+          resolved = 1;
+          break;
+        case Promise::PromiseState::kRejected:
+          resolved = 2;
+          break;
+        case Promise::PromiseState::kPending:
+          cout << "resolved" << resolved << endl;
+          cout << "pstate" << pstate << endl;
+          break;
+        default: break;
+      }
+    }
+    while (resolved < 1);
+
+    if (resolved == 2) {
+      return 0;
+    } else {
+      ret = promise->Result();
+    }
+  }
+
   // The result is expected to be an object. If it isn't, then return 0,
   // indicating the identity wasn't found.
   if (!ret->IsObject()) {
@@ -1424,6 +1479,25 @@ unsigned int SecureContext::PskServerCallback(SSL *ssl,
 
   return psk_len;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 unsigned int SecureContext::PskClientCallback(SSL *ssl,
                                               const char *hint,
